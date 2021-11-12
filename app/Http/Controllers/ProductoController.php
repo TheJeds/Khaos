@@ -14,7 +14,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        $productos = Producto::all();
+        return view('khaos/producto_index', compact('productos'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        return view('khaos/producto_create');
     }
 
     /**
@@ -35,7 +36,8 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $producto = Producto::create($request->all());
+        return redirect()->route('producto.index');
     }
 
     /**
@@ -46,7 +48,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        return view('khaos/producto_show', compact('producto'));
     }
 
     /**
@@ -57,7 +59,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        return view('khaos/producto_edit'. compact('producto'));
     }
 
     /**
@@ -69,7 +71,8 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        Producto::where('id', $producto->id)->update($request->except('_token', '_method', 'archivo'));
+        return redirect()->route('producto.show', $producto);
     }
 
     /**
