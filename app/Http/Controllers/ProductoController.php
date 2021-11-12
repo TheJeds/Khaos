@@ -59,7 +59,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('khaos/producto_edit'. compact('producto'));
+        return view('khaos/producto_edit', compact('producto'));
     }
 
     /**
@@ -83,6 +83,7 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        return redirect()->route('producto.index');
     }
 }

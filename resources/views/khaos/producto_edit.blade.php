@@ -18,19 +18,20 @@
                     <div class="col-12 col-md-6">
                         <div class="checkout_details_area mt-50 clearfix">
                             <form action="{{route('producto.update', $producto)}}" method="POST">
+                                @method('PATCH')
                                 @csrf <!-- {{ csrf_field() }} -->
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="nombre">Nombre <span>*</span></label>
-                                        <input type="text" name="nombre" class="form-control" id="nombre" required>
+                                        <input type="text" name="nombre" class="form-control" value="{{$producto->nombre}}" id="nombre" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="precio">Precio <span>*</span></label>
-                                        <input type="text" name="precio" class="form-control" id="precio" required>
+                                        <input type="text" name="precio" class="form-control" value="{{$producto->precio}}" id="precio" required>
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="cantidad">Cantidad </label>
-                                        <input type="text" name="cantidad" class="form-control" id="cantidad" required>
+                                        <input type="text" name="cantidad" class="form-control" value="{{$producto->cantidad}}" id="cantidad" required>
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="tipo">Tipo <span>*</span></label>
@@ -40,7 +41,7 @@
                                             <option value="accesorios">Accesorios</option>
                                         </select>
                                     </div>
-                                    <div class="col-12 mb-3">
+                                    <!-- <div class="col-12 mb-3">
                                         <label for="marca">Marca <span>*</span></label>
                                         <select class="w-100" id="marca" name="marca">
                                             <option value="nike">Nike</option>
@@ -50,8 +51,8 @@
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="imagen">Imagen <span>*</span></label>
-                                        <input type="text" class="form-control" id="imagen" name="imagen">
-                                    </div>
+                                        <input type="text" class="form-control" value="{{$producto->imagen}}" id="imagen" name="imagen">
+                                    </div>-->
                                 </div>
                                 <div>
                                     <input type="submit" class="btn essence-btn">

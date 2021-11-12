@@ -71,6 +71,11 @@
                                     <div class="total-products">
                                         <p><span>{{sizeof($productos)}}</span> Productos encontrados</p>
                                     </div>
+                                    <form action="{{route('producto.create')}}">
+                                        @csrf <!-- {{ csrf_field() }} -->
+                                        <br>
+                                        <input type="submit" value="crear" class="btn essence-btn">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +107,7 @@
                                         <!-- Product Description -->
                                         <div class="product-description">
                                             <span>topshop</span>
-                                            <a href="single-product-details.html">
+                                            <a href="{{route('producto.show', $productos[$i])}}">
                                                 <h6>{{ $productos[$i]->nombre }}</h6>
                                             </a>
                                             <p class="product-price">{{ $productos[$i]->precio }}</p>

@@ -4,7 +4,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        <h2>CREAR PRODUCTO</h2>
+                        <h2>PRODUCTO</h2>
                     </div>
                 </div>
             </div>
@@ -15,23 +15,23 @@
         <!-- Single Product Thumb -->
         <div class="single_product_thumb clearfix">
             <div class="product_thumbnail_slides owl-carousel">
-                <img src="img/product-img/product-big-1.jpg" alt="">
-                <img src="img/product-img/product-big-2.jpg" alt="">
-                <img src="img/product-img/product-big-3.jpg" alt="">
+                <img src="{{asset('layout/img/product-img/product-big-1.jpg')}}" alt="">
+                <img src="{{asset('layout/img/product-img/product-big-2.jpg')}}" alt="">
+                <img src="{{asset('layout/img/product-img/product-big-3.jpg')}}" alt="">
             </div>
         </div>
 
         <!-- Single Product Description -->
         <div class="single_product_desc clearfix">
-            <span>mango</span>
+            <span>Marca</span>
             <a href="cart.html">
-                <h2>One Shoulder Glitter Midi Dress</h2>
+                <h2>{{$producto->nombre}}</h2>
             </a>
-            <p class="product-price"><span class="old-price">$65.00</span> $49.00</p>
+            <p class="product-price">${{$producto->precio}}</p>
             <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.</p>
 
             <!-- Form -->
-            <form class="cart-form clearfix" method="post">
+            <form class="cart-form clearfix" action="#" method="post">
                 <!-- Select Box -->
                 <div class="select-box d-flex mt-50 mb-30">
                     <select name="select" id="productSize" class="mr-5">
@@ -50,12 +50,23 @@
                 <!-- Cart & Favourite Box -->
                 <div class="cart-fav-box d-flex align-items-center">
                     <!-- Cart -->
-                    <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
+                    <button type="submit" name="addtocart" class="btn essence-btn">Add to cart</button>                    
                     <!-- Favourite -->
                     <div class="product-favourite ml-4">
                         <a href="#" class="favme fa fa-heart"></a>
                     </div>
-                </div>
+                </div>   
+            </form>
+            <form action="{{route('producto.edit', $producto)}}">
+                @csrf <!-- {{ csrf_field() }} -->
+                <br>
+                <input type="submit" value="editar" class="btn essence-btn">
+            </form>
+            <form action="{{route('producto.destroy', $producto)}}" method="POST">
+                @method('DELETE')    
+                @csrf
+                <br>
+                <input type="submit" value="eliminar" class="btn essence-btn">
             </form>
         </div>
     </section>
