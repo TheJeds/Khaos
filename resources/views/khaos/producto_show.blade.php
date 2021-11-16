@@ -15,9 +15,8 @@
         <!-- Single Product Thumb -->
         <div class="single_product_thumb clearfix">
             <div class="product_thumbnail_slides owl-carousel">
-                <img src="{{asset('layout/img/product-img/product-big-1.jpg')}}" alt="">
-                <img src="{{asset('layout/img/product-img/product-big-2.jpg')}}" alt="">
-                <img src="{{asset('layout/img/product-img/product-big-3.jpg')}}" alt="">
+                <img src="{{asset('imagenes/' . $producto->imagen)}}" alt="">
+                <img src="{{asset('imagenes/' . $producto->imagen)}}" alt="">
             </div>
         </div>
 
@@ -31,8 +30,9 @@
             <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.</p>
 
             <!-- Form -->
-            <form class="cart-form clearfix" action="#" method="post">
+            <form class="cart-form clearfix" action="{{ route('bolsa.store')}}" method="POST">
                 <!-- Select Box -->
+                @csrf <!-- {{ csrf_field() }} -->
                 <div class="select-box d-flex mt-50 mb-30">
                     <select name="select" id="productSize" class="mr-5">
                         <option value="value">Size: XL</option>
@@ -49,8 +49,12 @@
                 </div>
                 <!-- Cart & Favourite Box -->
                 <div class="cart-fav-box d-flex align-items-center">
-                    <!-- Cart -->
-                    <button type="submit" name="addtocart" class="btn essence-btn">Add to cart</button>                    
+                    <!-- Cart -->                                       
+                        
+                    <input type="hidden" name="id" value="{{ $producto->id }}">
+                    <input type="hidden" name="nombre" value="{{ $producto->nombre }}">
+                    <input type="hidden" name="precio" value="{{ $producto->precio }}">
+                    <button type="submit" name="addtocart" class="btn essence-btn">Add to cart</button>  
                     <!-- Favourite -->
                     <div class="product-favourite ml-4">
                         <a href="#" class="favme fa fa-heart"></a>

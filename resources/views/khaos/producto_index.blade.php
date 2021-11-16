@@ -88,10 +88,7 @@
                                     <div class="single-product-wrapper">
                                         <!-- Product Image -->
                                         <div class="product-img">
-                                            <img src="{{asset('layout/img/product-img/product-1.jpg')}}" alt="">
-                                            <!-- Hover Thumb -->
-                                            <img class="hover-img" src="{{asset('layout/img/product-img/product-2.jpg')}}" alt="">
-
+                                            <img src="{{asset('imagenes/' . $productos[$i]->imagen)}}" alt="">
                                             <!-- Product Badge -->
                                             @if($i === sizeof($productos) -1 || $i === sizeof($productos) -2 || $i === sizeof($productos) -3)
                                                 <div class="product-badge new-badge">
@@ -110,7 +107,7 @@
                                             <a href="{{route('producto.show', $productos[$i])}}">
                                                 <h6>{{ $productos[$i]->nombre }}</h6>
                                             </a>
-                                            <p class="product-price">{{ $productos[$i]->precio }}</p>
+                                            <p class="product-price">${{ $productos[$i]->precio }}</p>
 
                                             <!-- Hover Content -->
                                             <div class="hover-content">

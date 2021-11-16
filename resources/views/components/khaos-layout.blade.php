@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Essence - Fashion Ecommerce Template</title>
+    <title>KHAOS</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="{{asset('layout/img/core-img/favicon.ico')}}">
@@ -27,7 +27,7 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="{{asset('layout/img/core-img/logo.png')}}" alt=""></a>
+                <a class="nav-brand" href="{{route('khaos.index')}}">KHAOS</a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -44,28 +44,24 @@
                             <li><a href="#">Shop</a>
                                 <div class="megamenu">
                                     <ul class="single-mega cn-col-4">
-                                        <li class="title">Women's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Blouses &amp; Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Rompers</a></li>
-                                        <li><a href="shop.html">Bras &amp; Panties</a></li>
+                                        <li class="title">Shop</li>
+                                        <li><a href="/producto">Ropa</a></li>
+                                        <li><a href="/producto">Tenis</a></li>
+                                        <li><a href="/producto">Accesorios</a></li>
                                     </ul>
                                     <ul class="single-mega cn-col-4">
-                                        <li class="title">Men's Collection</li>
-                                        <li><a href="shop.html">T-Shirts</a></li>
-                                        <li><a href="shop.html">Polo</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
                                     </ul>
                                     <ul class="single-mega cn-col-4">
-                                        <li class="title">Kid's Collection</li>
-                                        <li><a href="shop.html">Dresses</a></li>
-                                        <li><a href="shop.html">Shirts</a></li>
-                                        <li><a href="shop.html">T-shirts</a></li>
-                                        <li><a href="shop.html">Jackets</a></li>
-                                        <li><a href="shop.html">Trench</a></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
                                     </ul>
                                     <div class="single-mega cn-col-4">
                                         <img src="{{asset('layout/img/bg-img/bg-6.jpg')}}" alt="">
@@ -85,7 +81,7 @@
                                 </ul>
                             </li>
                             <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="/contacto">Contacto</a></li>
                         </ul>
                     </div>
                     <!-- Nav End -->
@@ -103,11 +99,14 @@
                 </div>
                 <!-- Favourite Area -->
                 <div class="favourite-area">
-                    <a href="#"><img src="{{asset('layout/img/core-img/heart.svg')}}" alt=""></a>
+                    <a href="{{route('bolsa.index')}}"><img src="{{asset('layout/img/core-img/heart.svg')}}" alt=""></a>
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
-                    <a href="#"><img src="{{asset('layout/img/core-img/user.svg')}}" alt=""></a>
+                    <a href="#">Login</a>
+                </div>
+                <div class="user-login-info">
+                    <a href="#">Register</a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
@@ -217,7 +216,7 @@
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="#"><img src="{{asset('layout/img/core-img/logo2.png')}}" alt=""></a>
+                            <a href="{{route('khaos.index')}}">KHAOS</a>
                         </div>
                         <!-- Footer Menu -->
                         <div class="footer_menu">

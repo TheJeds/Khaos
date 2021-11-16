@@ -6,12 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "bumbummen99/shoppingcart": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "hardevine/shoppingcart": "^3.0",
         "laravel/framework": "^8.65",
         "laravel/jetstream": "^2.4",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "larswiegers/laravel-maps": "^0.6.0",
         "livewire/livewire": "^2.5"
     },
     "require-dev": {

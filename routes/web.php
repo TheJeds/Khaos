@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\IndexKhaosPageController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\BolsaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,15 +16,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return redirect('producto/');
+});*/
+/*
+Route::get('/', function () {
+    return view('khaos/index_khaos');
+});
+*/
+
+Route::get('/', function () {
+    return view('welcome');
 });
 
-/*Route::get('/producto', function () {
-    return redirect('/producto');
-});*/
+Route::get('/hfghf', [IndexKhaosPageController::class, 'Index'])->name('khaos.index');
+
+Route::get('/bolsa', [BolsaController::class, 'Index'])->name('bolsa.index');
+
+Route::post('/bolsa', [BolsaController::class, 'Store'])->name('bolsa.store');
+
+Route::get('/contacto', function () {
+    return view('khaos/contacto_khaos');
+});
 
 Route::resource('producto', ProductoController::class);
+
+Route::get('admin/home', [ProductoController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

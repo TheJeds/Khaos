@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="checkout_details_area mt-50 clearfix">
-                            <form action="{{route('producto.update', $producto)}}" method="POST">
+                            <form action="{{route('producto.update', $producto)}}" method="POST" enctype="multipart/form-data">
                                 @method('PATCH')
                                 @csrf <!-- {{ csrf_field() }} -->
                                 <div class="row">
@@ -48,11 +48,11 @@
                                             <option value="adidas">Adidas</option>
                                             <option value="zara">Zara</option>
                                         </select>
-                                    </div>
+                                    </div>-->
                                     <div class="col-12 mb-3">
                                         <label for="imagen">Imagen <span>*</span></label>
-                                        <input type="text" class="form-control" value="{{$producto->imagen}}" id="imagen" name="imagen">
-                                    </div>-->
+                                        <input type="file" class="form-control" value="{{$producto->imagen}}" id="imagen_path" name="imagen_path">
+                                    </div>
                                 </div>
                                 <div>
                                     <input type="submit" class="btn essence-btn">
