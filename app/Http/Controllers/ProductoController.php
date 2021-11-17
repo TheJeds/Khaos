@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Marca;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -26,7 +27,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('khaos/producto_create');
+        $marcas = Marca::all();
+        return view('khaos/producto_create', compact('marcas'));
     }
 
     /**
@@ -37,14 +39,22 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $imagen = $request->nombre .'_'. $request->id . '.' . $request->imagen_path->extension();
+        $request->validate([
+            'nombre' => 'required|max:50',
+            'precio' => 'required|numeric',
+            'cantidad' => 'required|numeric',
+            'tipo' => 'max:15',
+            'imagen_path' => 'required|image'
+        ]); 
+
+        $imagen = $request->nombre .'_'. time() . '.' . $request->imagen_path->extension();
         $request->imagen_path->move(public_path('imagenes'), $imagen);
         $request->merge([
             'imagen'=>$imagen
         ]);
 
         $producto = Producto::create($request->all());
-        return redirect()->route('producto.index');
+        return redirect()->route('producto.index')->with('success_message', 'Producto Creado');
     }
 
     /**
@@ -78,6 +88,14 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {   
+
+        $request->validate([
+            'nombre' => 'required|max:50',
+            'precio' => 'required|numeric',
+            'cantidad' => 'required|numeric',
+            'tipo' => 'max:15',
+        ]);
+
         if($request->imagen_path != ''){
             $imagen_anterior = "imagenes/" . $producto->imagen;
             if(File::exists($imagen_anterior)){
@@ -85,7 +103,7 @@ class ProductoController extends Controller
             }
         
 
-            $imagen = $request->nombre .'_'. $request->id . '.' . $request->imagen_path->extension();
+            $imagen = $request->nombre .'_'. time() . '.' . $request->imagen_path->extension();
             $request->imagen_path->move(public_path('/imagenes'), $imagen);
 
             $request->merge([
@@ -93,7 +111,7 @@ class ProductoController extends Controller
             ]);
         }
         Producto::where('id', $producto->id)->update($request->except('_token', '_method', 'imagen_path'));
-        return redirect()->route('producto.show', $producto)->with('msg', 'Producto editado');
+        return redirect()->route('producto.show', $producto)->with('success_message', 'Producto editado');
     }
 
     /**
@@ -109,6 +127,6 @@ class ProductoController extends Controller
             File::delete($imagen_anterior);
         }
         $producto->delete();
-        return redirect()->route('producto.index')->with('msg', 'Producto eliminado');
+        return redirect()->route('producto.index')->with('success_message', 'Producto eliminado');
     }
 }

@@ -22,6 +22,23 @@
 
         <!-- Single Product Description -->
         <div class="single_product_desc clearfix">
+            <div>
+                @if (session()->has('success_message'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success_message') }}
+                    </div>
+                @endif
+
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
             <span>Marca</span>
             <a href="cart.html">
                 <h2>{{$producto->nombre}}</h2>
@@ -61,17 +78,23 @@
                     </div>
                 </div>   
             </form>
-            <form action="{{route('producto.edit', $producto)}}">
-                @csrf <!-- {{ csrf_field() }} -->
-                <br>
-                <input type="submit" value="editar" class="btn essence-btn">
-            </form>
-            <form action="{{route('producto.destroy', $producto)}}" method="POST">
-                @method('DELETE')    
-                @csrf
-                <br>
-                <input type="submit" value="eliminar" class="btn essence-btn">
-            </form>
+            @if(Route::has('login'))
+                @auth
+                    @if(Auth::user()->utype === 'ADM')
+                        <form action="{{route('producto.edit', $producto)}}">
+                            @csrf <!-- {{ csrf_field() }} -->
+                            <br>
+                            <input type="submit" value="editar" class="btn essence-btn">
+                        </form>
+                        <form action="{{route('producto.destroy', $producto)}}" method="POST">
+                            @method('DELETE')    
+                            @csrf
+                            <br>
+                            <input type="submit" value="eliminar" class="btn essence-btn">
+                        </form>
+                    @endif
+                @endif
+            @endif            
         </div>
     </section>
 </x-khaos-layout>

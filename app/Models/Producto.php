@@ -14,5 +14,11 @@ class Producto extends Model
         'cantidad',
         'tipo',
         'imagen',
+        'marca_id',
     ];
+
+    public function marca(){
+
+        return $this->belongsTo(Marca::class);
+    }
 }

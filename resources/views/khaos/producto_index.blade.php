@@ -13,9 +13,26 @@
     <!-- ##### Shop Grid Area Start ##### -->
     <section class="shop_grid_area section-padding-80">
         <div class="container">
+            <div>
+                @if (session()->has('success_message'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success_message') }}
+                    </div>
+                @endif
+
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
             <div class="row">
                 <div class="col-12 col-md-4 col-lg-3">
-                    <div class="shop_sidebar_area">
+                    <div class="shop_sidebar_area">                        
 
                         <!-- ##### Single Widget ##### -->
                         <div class="widget catagory mb-50">
@@ -71,11 +88,18 @@
                                     <div class="total-products">
                                         <p><span>{{sizeof($productos)}}</span> Productos encontrados</p>
                                     </div>
-                                    <form action="{{route('producto.create')}}">
-                                        @csrf <!-- {{ csrf_field() }} -->
-                                        <br>
-                                        <input type="submit" value="crear" class="btn essence-btn">
-                                    </form>
+                                    @if(Route::has('login'))
+                                        @auth
+                                            @if(Auth::user()->utype === 'ADM')
+                                                <form action="{{route('producto.create')}}">
+                                                    @csrf <!-- {{ csrf_field() }} -->
+                                                    <br>
+                                                    <input type="submit" value="crear" class="btn essence-btn">
+                                                </form>
+                                            @endif
+                                        @endif
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>

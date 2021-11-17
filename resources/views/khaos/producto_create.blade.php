@@ -42,10 +42,12 @@
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="marca">Marca <span>*</span></label>
-                                        <select class="w-100" id="marca" name="marca">
-                                            <option value="nike">Nike</option>
-                                            <option value="adidas">Adidas</option>
-                                            <option value="zara">Zara</option>
+                                        <select class="w-100" id="marca_id" name="marca_id">
+                                            @foreach ($marcas as $marca)
+
+                                                <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
+
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-12 mb-3">

@@ -23,13 +23,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('khaos/index_khaos');
 });
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
-Route::get('/hfghf', [IndexKhaosPageController::class, 'Index'])->name('khaos.index');
+Route::get('/', [IndexKhaosPageController::class, 'Index'])->name('khaos.index');
 
 Route::get('/bolsa', [BolsaController::class, 'Index'])->name('bolsa.index');
 

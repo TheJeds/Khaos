@@ -18,6 +18,7 @@ class ProductoFactory extends Factory
             'precio'=> $this->faker->randomFloat(2, 20, 300),
             'cantidad'=> $this->faker->randomNumber(3, true),
             'tipo' => $this->faker->word(),
+            'marca_id' => '1',
             'imagen' => 'product-1.jpg',
         ];
     }

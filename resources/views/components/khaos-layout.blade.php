@@ -101,13 +101,34 @@
                 <div class="favourite-area">
                     <a href="{{route('bolsa.index')}}"><img src="{{asset('layout/img/core-img/heart.svg')}}" alt=""></a>
                 </div>
+
                 <!-- User Login Info -->
-                <div class="user-login-info">
-                    <a href="#">Login</a>
-                </div>
-                <div class="user-login-info">
-                    <a href="#">Register</a>
-                </div>
+                @if (Route::has('login'))
+                                                
+                    @auth
+                        <div class="user-login-info">
+                            <a href="http://khaos.test/user/profile">Perfil</a>
+                        </div>
+                        <div class="user-login-info">
+                            <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
+                        </div>
+                        <form id="logout-form" method="POST" action="{{route('logout')}}">
+                            @csrf
+                        </form>                    
+                    @else
+                        <!-- User Login Info -->
+                        <div class="user-login-info">
+                            <a href="{{ route('login') }}">Login</a>
+                        </div>
+
+                        @if (Route::has('register'))
+                            <div class="user-login-info">
+                                <a href="{{ route('register') }}">Register</a>
+                            </div>
+                        @endif
+                    @endauth
+                                                
+                @endif
                 <!-- Cart Area -->
                 <div class="cart-area">
                     <a href="#" id="essenceCartBtn"><img src="{{asset('layout/img/core-img/bag.svg')}}" alt=""> <span>3</span></a>
