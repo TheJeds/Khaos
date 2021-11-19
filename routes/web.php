@@ -5,6 +5,8 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\BolsaController;
 use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +51,28 @@ Route::get('admin/home', [ProductoController::class, 'adminHome'])->name('admin.
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+Route::get('/auth/github/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+
+Route::get('/auth/github/callback', function () {
+    $githubUser = Socialite::driver('github')->user();
+
+    $user = User::firstOrCreate(
+        [
+            'provider_id'=>$githubUser->getId(),
+        ],
+        [
+            'email'=>$githubUser->getEmail(),
+            'name'=>$githubUser->getName(),
+            'provider_id'=>$githubUser->getId(),
+        ],
+    );
+
+    auth()->login($user, true);
+
+    return redirect('dashboard');
+
+});
