@@ -21,6 +21,7 @@ class CreateProductosTable extends Migration
             $table->float('precio');
             $table->string('tipo');
             $table->string('imagen');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

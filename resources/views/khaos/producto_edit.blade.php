@@ -17,6 +17,15 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="checkout_details_area mt-50 clearfix">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <form action="{{route('producto.update', $producto)}}" method="POST" enctype="multipart/form-data">
                                 @method('PATCH')
                                 @csrf <!-- {{ csrf_field() }} -->
@@ -53,6 +62,13 @@
                                         <label for="imagen">Imagen <span>*</span></label>
                                         <input type="file" class="form-control" value="{{$producto->imagen}}" id="imagen_path" name="imagen_path">
                                     </div>
+                                    @foreach ($cuidados as $cuidado)
+                                        <label for="{{$cuidado->nombre_cuidado}}" class="col-3">
+                                            {{$cuidado->nombre_cuidado}}
+                                            <input type="checkbox" name="cuidado_id[]" value="{{$cuidado->id}}" id="{{$cuidado->nombre_cuidado}}">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    @endforeach
                                 </div>
                                 <div>
                                     <input type="submit" class="btn essence-btn">

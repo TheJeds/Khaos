@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuidado;
 use App\Models\Marca;
 use App\Models\Producto;
 use Illuminate\Http\Request;
@@ -14,6 +15,11 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth')->except("index", 'show');
+    }
+
     public function index()
     {
         $productos = Producto::all();
@@ -28,7 +34,8 @@ class ProductoController extends Controller
     public function create()
     {
         $marcas = Marca::all();
-        return view('khaos/producto_create', compact('marcas'));
+        $cuidados = Cuidado::all();
+        return view('khaos/producto_create', compact('marcas', 'cuidados'));
     }
 
     /**
@@ -54,6 +61,7 @@ class ProductoController extends Controller
         ]);
 
         $producto = Producto::create($request->all());
+        $producto->cuidados()->attach($request->cuidado_id);
         return redirect()->route('producto.index')->with('success_message', 'Producto Creado');
     }
 
@@ -65,7 +73,8 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        return view('khaos/producto_show', compact('producto'));
+        $comentarios = $producto->comentarios;
+        return view('khaos/producto_show', compact('producto', 'comentarios'));
     }
 
     /**
@@ -76,7 +85,8 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('khaos/producto_edit', compact('producto'));
+        $cuidados = Cuidado::all();
+        return view('khaos/producto_edit', compact('producto', 'cuidados'));
     }
 
     /**
@@ -110,7 +120,8 @@ class ProductoController extends Controller
                 'imagen' => $imagen,
             ]);
         }
-        Producto::where('id', $producto->id)->update($request->except('_token', '_method', 'imagen_path'));
+        Producto::where('id', $producto->id)->update($request->except('_token', '_method', 'imagen_path', 'cuidado_id'));
+        $producto->cuidados()->sync($request->cuidado_id);
         return redirect()->route('producto.show', $producto)->with('success_message', 'Producto editado');
     }
 

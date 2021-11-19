@@ -94,7 +94,91 @@
                         </form>
                     @endif
                 @endif
-            @endif            
+            @endif         
+        </div>
+    
+        <div class="order-details-confirmation">
+            <div class="row">
+                <div class="col-12 col-md-15 col-lg-15 ml-lg-auto"> 
+
+                
+                
+       
+                    <h4>Comentarios</h4>
+                    <hr>
+                    @foreach ($comentarios as $comentario)
+                        @if ($comentario->producto->id == $producto->id)
+                            <div class="comment-list">
+                                <div class="single-comment justify-content-between d-flex">
+                                    <div class="user justify-content-between d-flex">
+                                        
+                                        <div class="desc">
+                                            <h6>{{ $comentario->titulo }}</h6>
+                                            <p class="comment">
+                                            {{ $comentario->comentario }}
+                                            </p>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <p>{{ $comentario->user->name }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @can('update', $comentario)
+                                    <div class="mt-20">
+                                        <form action="{{route('comentario.destroy', $comentario)}}" method="POST" onsubmit="return confirm('¿Estas seguro de eliminar el comentario?')">
+                                            @method('DELETE')    
+                                            @csrf                                          
+                                            <input type="submit" value="Eliminar" class="btn essence-btn">
+                                        </form>
+                                    </div>
+                                @endcan
+                            </div>
+                        @endif
+                        <hr>
+                    @endforeach
+
+                    <div class="order-details-confirmation">
+                        <div class="row">
+                            <div class="col-12 col-md-15 col-lg-15 ml-lg-auto"> 
+                                <h5>Deja un comentario</h5>
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <form class="form-contact comment_form" action="{{route('comentario.store')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <input class="form-control" name="titulo" type="text" required placeholder="Titulo">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <textarea class="form-control w-100" name="comentario" cols="30" rows="9" required placeholder="Deja tu comentario"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn essence-btn">Publica tu comentario</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </x-khaos-layout>

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(MarcasTableSeeder::class);
         $this->call(ProductosTableSeeder::class);
+        $this->call(CuidadosTableSeeder::class);
 
         User::create([
             'name'=>'Admin',

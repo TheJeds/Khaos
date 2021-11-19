@@ -3,6 +3,7 @@
 use App\Http\Controllers\IndexKhaosPageController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\BolsaController;
+use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,8 @@ Route::post('/bolsa', [BolsaController::class, 'Store'])->name('bolsa.store');
 Route::get('/contacto', function () {
     return view('khaos/contacto_khaos');
 });
+
+Route::resource('comentario', ComentarioController::class);
 
 Route::resource('producto', ProductoController::class);
 
