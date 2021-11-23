@@ -50,25 +50,22 @@
                                             <option value="accesorios">Accesorios</option>
                                         </select>
                                     </div>
-                                    <!-- <div class="col-12 mb-3">
-                                        <label for="marca">Marca <span>*</span></label>
-                                        <select class="w-100" id="marca" name="marca">
-                                            <option value="nike">Nike</option>
-                                            <option value="adidas">Adidas</option>
-                                            <option value="zara">Zara</option>
-                                        </select>
-                                    </div>-->
                                     <div class="col-12 mb-3">
                                         <label for="imagen">Imagen <span>*</span></label>
                                         <input type="file" class="form-control" value="{{$producto->imagen}}" id="imagen_path" name="imagen_path">
                                     </div>
-                                    @foreach ($cuidados as $cuidado)
-                                        <label for="{{$cuidado->nombre_cuidado}}" class="col-3">
-                                            {{$cuidado->nombre_cuidado}}
-                                            <input type="checkbox" name="cuidado_id[]" value="{{$cuidado->id}}" id="{{$cuidado->nombre_cuidado}}">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    @endforeach
+                                    <div class="col-7 mb-1">
+                                        <label for="cantidad">Cuidados</label>
+                                        <br>
+                                        @foreach ($cuidados as $cuidado)
+                                            <label for="{{$cuidado->nombre_cuidado}}" class="mb-1">
+                                                {{$cuidado->nombre_cuidado}}
+                                                <label for="default-checkbox">{{ $cuidado->cuidado_descripcion }}</label>
+                                                <input type="checkbox" name="cuidado_id[]" value="{{$cuidado->id}}" id="{{$cuidado->nombre_cuidado}}">                                                
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div>
                                     <input type="submit" class="btn essence-btn">

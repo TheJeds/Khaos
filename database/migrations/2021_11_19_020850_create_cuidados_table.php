@@ -16,6 +16,7 @@ class CreateCuidadosTable extends Migration
         Schema::create('cuidados', function (Blueprint $table) {
             $table->id();
             $table->string('nombre_cuidado');
+            $table->string('descripcion');
         });
     }
 

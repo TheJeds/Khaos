@@ -37,29 +37,9 @@
                         <!-- ##### Single Widget ##### -->
                         <div class="widget catagory mb-50">
                             <!-- Widget Title -->
-                            <h6 class="widget-title mb-30">Categorias</h6>
-
-                            <!--  Catagories  -->
-                            <div class="catagories-menu">
-                                <ul id="menu-content2" class="sub-menu collapse show">
-                                    <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#clothing">
-                                        <li><a href="#">Todas</a></li>
-                                        <li><a href="#">Ropa</a></li>
-                                        <li><a href="#">Tenis</a></li>
-                                        <li><a href="#">Accesorios</a></li>
-                                    </li>
-                                </ul>
-                            </div>
+                            <h6 class="widget-title mb-30">Marcas</h6>
                         </div>
 
-                        <!-- ##### Single Widget ##### -->
-                        <div class="widget price mb-50">
-                            <!-- Widget Title -->
-                            <h6 class="widget-title mb-30">Filter by</h6>
-                        </div>
-
-                        <!-- ##### Single Widget ##### -->
                             <!-- Widget Title 2 -->
                             <div class="widget catagory mb-50">
                             <!-- Widget Title -->
@@ -68,10 +48,13 @@
                             <div class="catagories-menu">
                                 <ul id="menu-content2" class="sub-menu collapse show">
                                     <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#clothing">
-                                        <li><a href="#">Nike</a></li>
-                                        <li><a href="#">Adidas</a></li>
-                                        <li><a href="#">Zara</a></li>
+                                    <a href="{{ route('producto.index') }}" class="d-flex">
+                                        <p>Todas</p>
+                                    </a>
+                                    <li data-toggle="collapse" data-target="#clothing">                                            
+                                    @foreach ($marcas as $marca)
+                                        <li><a href="{{ route('producto.index_marcas', $marca) }}">{{$marca->nombre}}</a></li>                                                                              
+                                    @endforeach
                                     </li>
                                 </ul>
                             </div>
@@ -127,19 +110,14 @@
 
                                         <!-- Product Description -->
                                         <div class="product-description">
-                                            <span>topshop</span>
+                                            <span>{{ $productos[$i]->marca->nombre }}</span>
+                                            <br>
+                                            <span>{{ $productos[$i]->tipo }}</span>
                                             <a href="{{route('producto.show', $productos[$i])}}">
                                                 <h6>{{ $productos[$i]->nombre }}</h6>
                                             </a>
                                             <p class="product-price">${{ $productos[$i]->precio }}</p>
-
-                                            <!-- Hover Content -->
-                                            <div class="hover-content">
-                                                <!-- Add to Cart -->
-                                                <div class="add-to-cart-btn">
-                                                    <a href="#" class="btn essence-btn">Add to Cart</a>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>

@@ -63,13 +63,18 @@
                                         <label for="imagen_path">Imagen <span>*</span></label>
                                         <input type="file" class="form-control" id="imagen_path" name="imagen_path" required>
                                     </div>
-                                    @foreach ($cuidados as $cuidado)
-                                        <label for="{{$cuidado->nombre_cuidado}}" class="col-3">
-                                            {{$cuidado->nombre_cuidado}}
-                                            <input type="checkbox" name="cuidado_id[]" value="{{$cuidado->id}}" id="{{$cuidado->nombre_cuidado}}">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    @endforeach
+                                    <div class="col-7 mb-1">
+                                        <label for="cantidad">Cuidados</label>
+                                        <br>
+                                        @foreach ($cuidados as $cuidado)
+                                            <label for="{{$cuidado->nombre_cuidado}}" class="mb-1">
+                                                {{$cuidado->nombre_cuidado}}
+                                                <label for="default-checkbox">{{ $cuidado->cuidado_descripcion }}</label>
+                                                <input type="checkbox" name="cuidado_id[]" value="{{$cuidado->id}}" id="{{$cuidado->nombre_cuidado}}">                                                
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div>
                                     <input type="submit" class="btn essence-btn">

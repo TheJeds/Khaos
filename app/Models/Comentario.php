@@ -26,4 +26,9 @@ class Comentario extends Model
     {
         return $this->belongsTo(Producto::class);
     }
+
+    public function setTituloAttribute($titulo)
+    {
+        return $this->attributes['titulo'] = strtoupper($titulo);
+    }
 }

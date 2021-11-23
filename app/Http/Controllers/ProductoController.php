@@ -23,7 +23,8 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = Producto::all();
-        return view('khaos/producto_index', compact('productos'));
+        $marcas = Marca::all();
+        return view('khaos/producto_index', compact('productos', 'marcas'));    
     }
 
     /**

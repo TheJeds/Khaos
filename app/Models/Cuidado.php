@@ -15,4 +15,9 @@ class Cuidado extends Model
     {
         return $this->belongsToMany(Producto::class);
     }
+
+    public function getCuidadoDescripcionAttribute()
+    {
+        return $this->cuidado . ' (' . $this->descripcion . ')';
+    }
 }

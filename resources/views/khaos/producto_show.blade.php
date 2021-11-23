@@ -38,32 +38,36 @@
                         </ul>
                     </div>
                 @endif
-            </div>
-            <span>Marca</span>
+            </div>            
+            <span>{{ $producto->marca->nombre }}</span>
             <a href="cart.html">
                 <h2>{{$producto->nombre}}</h2>
             </a>
             <p class="product-price">${{$producto->precio}}</p>
             <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.</p>
-
+            <h5>Cuidados</h5>
+            @foreach ($producto->cuidados as $cuidado)
+                <li>
+                    {{ $cuidado->nombre_cuidado }}
+                </li>
+            @endforeach
             <!-- Form -->
-            <form class="cart-form clearfix" action="{{ route('bolsa.store')}}" method="POST">
+            @if (Route::has('login'))
+                                                
+                @auth
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form class="cart-form clearfix" action="{{ route('bolsa.store')}}" method="POST">
                 <!-- Select Box -->
                 @csrf <!-- {{ csrf_field() }} -->
-                <div class="select-box d-flex mt-50 mb-30">
-                    <select name="select" id="productSize" class="mr-5">
-                        <option value="value">Size: XL</option>
-                        <option value="value">Size: X</option>
-                        <option value="value">Size: M</option>
-                        <option value="value">Size: S</option>
-                    </select>
-                    <select name="select" id="productColor">
-                        <option value="value">Color: Black</option>
-                        <option value="value">Color: White</option>
-                        <option value="value">Color: Red</option>
-                        <option value="value">Color: Purple</option>
-                    </select>
-                </div>
                 <!-- Cart & Favourite Box -->
                 <div class="cart-fav-box d-flex align-items-center">
                     <!-- Cart -->                                       
@@ -77,7 +81,22 @@
                         <a href="#" class="favme fa fa-heart"></a>
                     </div>
                 </div>   
-            </form>
+                </form>   
+                @else
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <a class="btn essence-btn" href="{{route('register')}}">Add to cart</a>                    
+                @endauth
+                
+            @endif
+            
             @if(Route::has('login'))
                 @auth
                     @if(Auth::user()->utype === 'ADM')
@@ -86,7 +105,7 @@
                             <br>
                             <input type="submit" value="editar" class="btn essence-btn">
                         </form>
-                        <form action="{{route('producto.destroy', $producto)}}" method="POST">
+                        <form action="{{route('producto.destroy', $producto)}}" method="POST" onsubmit="return confirm('¿Estas seguro de eliminar el producto?')">
                             @method('DELETE')    
                             @csrf
                             <br>
@@ -96,14 +115,11 @@
                 @endif
             @endif         
         </div>
-    
+    </section>
+    <section>
         <div class="order-details-confirmation">
             <div class="row">
                 <div class="col-12 col-md-15 col-lg-15 ml-lg-auto"> 
-
-                
-                
-       
                     <h4>Comentarios</h4>
                     <hr>
                     @foreach ($comentarios as $comentario)
@@ -144,36 +160,46 @@
                             <div class="col-12 col-md-15 col-lg-15 ml-lg-auto"> 
                                 <h5>Deja un comentario</h5>
 
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                @if (Route::has('login'))
+                                                
+                                    @auth
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    <form class="form-contact comment_form" action="{{route('comentario.store')}}" method="POST">
+                                    @csrf <!-- {{ csrf_field() }} -->
+                                        <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <input class="form-control" name="titulo" type="text" required placeholder="Titulo">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control w-100" name="comentario" cols="30" rows="9" required placeholder="Deja tu comentario"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn essence-btn">Publica tu comentario</button>
+                                        </div>
+                                    </form>        
+                                    @else
+                                        <h6>-Debes registrarte para poder comentar</h6>
+                                    @endauth
+                                    
                                 @endif
 
-                                <form class="form-contact comment_form" action="{{route('comentario.store')}}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="producto_id" value="{{ $producto->id }}">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <input class="form-control" name="titulo" type="text" required placeholder="Titulo">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <textarea class="form-control w-100" name="comentario" cols="30" rows="9" required placeholder="Deja tu comentario"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn essence-btn">Publica tu comentario</button>
-                                    </div>
-                                </form>
+                                
                             </div>
                         </div>
                     </div>

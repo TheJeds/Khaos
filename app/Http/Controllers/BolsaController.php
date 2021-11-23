@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Validator;
 
 class BolsaController extends Controller
 {
@@ -36,11 +37,20 @@ class BolsaController extends Controller
      */
     public function store(Request $request)
     {
+        $duplicados = Cart::search(function ($cartItem, $rowId) use ($request) {
+            return $cartItem->id === $request->id;
+        });
+
+        if ($duplicados->isNotEmpty()) {
+            return redirect()->route('bolsa.index')->with('success_message', 'El producto ya esta en tu bolsa');
+        }
+
         Cart::add($request->id, $request->nombre,1,$request->precio)
-        ->associate('App\Producto');
+        ->associate('App\Models\Producto');
 
         return redirect()->route('bolsa.index')->with('success_message', 'Se agrego a tu bolsa de compras!');
     }
+
 
     /**
      * Display the specified resource.
@@ -73,7 +83,18 @@ class BolsaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'cantidad' => 'required|numeric|between:1,5'
+        ]);
+
+        if ($validator->fails()) {
+            session()->flash('errors', collect(['cantidad must be between 1 and 5.']));
+            return response()->json(['success' => false], 400);
+        }
+
+        Cart::update($id, $request->cantidad);
+        session()->flash('success_message', 'cantidad was updated successfully!');
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -84,6 +105,8 @@ class BolsaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cart::remove($id);
+
+        return back()->with('success_message', 'El producto ha sido removido');
     }
 }

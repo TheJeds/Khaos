@@ -5,8 +5,8 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="hero-content">
-                        <h2>New Collection</h2>
-                        <a href="/producto" class="btn essence-btn">view collection</a>
+                        <h2>Nueva Coleccion</h2>
+                        <a href="/producto" class="btn essence-btn">ver coleccion</a>
                     </div>
                 </div>
             </div>
@@ -22,23 +22,48 @@
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({{asset('layout/img/bg-img/bg-2.jpg')}});">
                         <div class="catagory-content">
-                            <a href="/producto">Ropa</a>
+                            <a href="/producto">Toda</a>
                         </div>
                     </div>
                 </div>
                 <!-- Single Catagory -->
                 <div class="col-12 col-sm-6 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({{asset('layout/img/bg-img/bg-3.jpg')}});">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({{asset('layout/img/marca-img/nike_marca.png')}});">
                         <div class="catagory-content">
-                            <a href="/producto">Tenis</a>
+                            <a href="/producto/marca/1">Nike</a>
                         </div>
                     </div>
                 </div>
                 <!-- Single Catagory -->
                 <div class="col-12 col-sm-6 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({{asset('layout/img/bg-img/bg-4.jpg')}});">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({{asset('layout/img/marca-img/adidas_marca.png')}});">
                         <div class="catagory-content">
-                            <a href="/producto">Accessorios</a>
+                            <a href="/producto/marca/2">Adidas</a>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({{asset('layout/img/marca-img/ca_marca.png')}});">
+                        <div class="catagory-content">
+                            <a href="/producto/marca/5">C&A</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Catagory -->
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({{asset('layout/img/marca-img/hm_marca.jpg')}});">
+                        <div class="catagory-content">
+                            <a href="/producto/marca/4">H&M</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Catagory -->
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url({{asset('layout/img/marca-img/zara_marca.jpeg')}});">
+                        <div class="catagory-content">
+                            <a href="/producto/marca/3">ZARA</a>
                         </div>
                     </div>
                 </div>
@@ -77,19 +102,12 @@
                                 </div>
                                 <!-- Product Description -->
                                 <div class="product-description">
-                                    <span>topshop</span>
+                                    <span>{{ $producto->marca->nombre }}</span>
                                     <a href="{{route('producto.show', $producto->id)}}">
                                         <h6>{{ $producto->nombre }}</h6>
                                     </a>
                                     <p class="product-price">${{ $producto->precio }}</p>
 
-                                    <!-- Hover Content -->
-                                    <div class="hover-content">
-                                        <!-- Add to Cart -->
-                                        <div class="add-to-cart-btn">
-                                            <a href="#" class="btn essence-btn">Add to Cart</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         @endforeach
